@@ -10,7 +10,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from lottery_prob import CycleNumber, PickStat , LastPick ,OddOrEven,GroupRange,SameDigitCount
 from lottery import str_list_digit,dict_column
 import os
-
+import requests
 
 import time
 
@@ -486,6 +486,7 @@ class LotteryDrawer:
                         plt.show()
                         
                 return None
+
         
         
         def MainRoutine(self):

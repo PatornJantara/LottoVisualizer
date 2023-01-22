@@ -4,6 +4,7 @@ import math
 from tkinter.constants import TRUE
 from web_grab_data import WebScrapper
 from datetime import date
+from datetime import datetime
 import os
 import time
 
@@ -27,6 +28,9 @@ def UpdateDataBase():
     csv_data = ""
     csv_tail = ""
     first_prize = []
+    WebData = WebScrapper()
+    WebData.check_driver_version()
+        
 
     with open('_LottoFile.csv', newline='') as file:
         reader = csv.reader(file)
@@ -72,7 +76,7 @@ def UpdateDataBase():
 
     if len(list_day) > 0 :
 
-        WebData = WebScrapper()
+
 
         bUpdate = False
 
@@ -206,6 +210,8 @@ def RollLottery(digit1,digit2,digit3,digit4,digit5,digit6):
         str_number += digit6
     else :
         str_number += random.choice(list_number)
+
+    WriteRecord(str_number)
 
     return str_number
 
@@ -420,4 +426,13 @@ def WriteFileData(data):
     os.rename('_LottoFile.txt','_LottoFile.csv')
 
 
+def WriteRecord(data):
 
+    if os.path.exists('Roll-record.txt'):
+        append_write = 'a' # append if already exists
+    else:
+        append_write = 'w' # make a new file if not
+
+    highscore = open('Roll-record.txt',append_write)
+    highscore.write( datetime.now().strftime("%d/%m/%Y %H:%M:%S") +'\t'+data+ '\n')
+    highscore.close()
